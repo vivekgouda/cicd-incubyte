@@ -1,0 +1,18 @@
+- hosts: all
+
+  tasks:
+
+  - name: stop if we have old docker container
+    command: docker stop incubyte-container
+    ignore_errors: yes
+
+  - name: remove stopped docker container
+    command: docker rm incubyte-container
+    ignore_errors: yes
+
+  - name: remove current docker image
+    command: docker rmi vivekgouda/cicd-incubyte:latest
+    ignore_errors: yes
+
+  - name: creating docker image
+    command: docker run -d --name incubyte-container -p 8081:8080 vivekgouda/cicd-incubyte:latest

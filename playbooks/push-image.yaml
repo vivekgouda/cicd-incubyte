@@ -1,0 +1,15 @@
+---
+- hosts: ansible
+
+  tasks:
+
+  - name: build docker image
+    command: "docker build -t cicd-incubyte:latest ." 
+    args:
+      chdir: /opt/docker
+
+  - name: tag docker image
+    command: "docker tag cicd-incubyte:latest vivekgouda/cicd-incubyte:latest"
+
+  - name: push docker image
+    command: "docker push vivekgouda/cicd-incubyte:latest"      
